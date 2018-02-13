@@ -20,6 +20,7 @@ class textBox:
 class pdfTextParser:
     def __init__(self):
         self.textBoxList = []
+        self.pageSize = [0, 0]
 
     def extractTargetText(self, targetPath, targetText = ' '):
 
@@ -73,9 +74,9 @@ def parse_obj(lt_objs):
 
         # if it's a textbox, print text and location
         if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
-            print ("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
-            print(obj.bbox[2])
-            print(obj.bbox[3])
+            #print ("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
+            #print(obj.bbox[2])
+            #print(obj.bbox[3])
             myStack.append(textBox(obj.bbox[0], obj.bbox[1], obj.bbox[2], obj.bbox[3],obj.get_text().replace('\n', '_')))
 
         # if it's a container, recurse

@@ -20,14 +20,17 @@ import os
 
 from pdfrw import PdfReader, PdfWriter, PageMerge
 
-argv = sys.argv[1:]
-underneath = '-u' in argv
-if underneath:
-    del argv[argv.index('-u')]
-inpfn, wmarkfn = argv
-outfn = 'watermark.' + os.path.basename(inpfn)
-wmark = PageMerge().add(PdfReader(wmarkfn).pages[0])[0]
-trailer = PdfReader(inpfn)
-for page in trailer.pages:
-    PageMerge(page).add(wmark, prepend=underneath).render()
-PdfWriter(outfn, trailer=trailer).write()
+class PdfMerger:
+    def merge(self, layer1, layer2):
+        #argv = sys.argv[1:]
+        argv = [layer1,layer2]
+        underneath = '-u' in argv
+        if underneath:
+            del argv[argv.index('-u')]
+        inpfn, wmarkfn = argv
+        outfn = 'watermark.' + os.path.basename(wmarkfn)
+        wmark = PageMerge().add(PdfReader(wmarkfn).pages[0])[0]
+        trailer = PdfReader(inpfn)
+        for page in trailer.pages:
+            PageMerge(page).add(wmark, prepend=underneath).render()
+        PdfWriter(outfn, trailer=trailer).write()
