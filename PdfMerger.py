@@ -17,10 +17,11 @@ NOTE 2: At one point, this example was extremely complicated, with
 
 import sys
 import os
-
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
+from PyQt5.QtGui import QIcon
 from pdfrw import PdfReader, PdfWriter, PageMerge
 
-class PdfMerger:
+class PdfMerger(QWidget):
     def merge(self, layer1, layer2):
         #argv = sys.argv[1:]
         argv = [layer1,layer2]
@@ -33,4 +34,10 @@ class PdfMerger:
         trailer = PdfReader(inpfn)
         for page in trailer.pages:
             PageMerge(page).add(wmark, prepend=underneath).render()
-        PdfWriter(outfn, trailer=trailer).write()
+
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","All Files (*);;Text Files (*.txt)", options=options)
+        if fileName:
+            PdfWriter(fileName, trailer=trailer).write()
+
