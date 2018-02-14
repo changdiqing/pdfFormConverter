@@ -23,8 +23,9 @@ def createFormLayerByTarget(targetFile, targetText):
 
     for item in myParser.textBoxList:
         if item.text == targetText:
-            print(item.text)
             coorList.append([item.coorxl, item.cooryl, item.coorxr, item.cooryr])
+        else:
+            print(item.text)
 
     # create intermediate pdf file as new formular layer with pageSize and coordinates
     myBytesIO = myFormLayerGenerator.createFormLayer(xTR, yTR, coorList)

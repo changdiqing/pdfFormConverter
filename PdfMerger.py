@@ -37,7 +37,7 @@ class PdfMerger(QWidget):
 
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","All Files (*);;Text Files (*.txt)", options=options)
+        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","PDF (*.pdf)", options=options)
         if fileName:
             PdfWriter(fileName, trailer=trailer).write()
 

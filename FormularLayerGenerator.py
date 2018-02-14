@@ -12,13 +12,19 @@ class FormularLayerGenerator:
         can.setPageSize((pageSizeX,pageSizeY))
         # can.drawString(10, 100, "Hello world")
         counter = 1
+        extraBorderWidth = 5
         for i in coorList:
             can.acroForm.textfield(
                 value='',
-                x=i[0],y=i[1],
-                width = i[2]-i[0], height = i[3]-i[1],
+                x=i[0]-extraBorderWidth,y=i[1],
+                width = i[2]-i[0]+ 2*extraBorderWidth, height = i[3]-i[1],
                 name='tfield'+str(counter),
-                forceBorder=True)
+                fillColor=None,
+                fontSize = 6,
+                borderWidth = 0.1,
+                tooltip = 'please enter a length in mm',
+                forceBorder=True
+            )
             counter += 1
         # can.acroForm.checkbox(
         #  name='er',

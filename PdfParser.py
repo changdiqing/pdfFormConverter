@@ -5,7 +5,7 @@ from pdfminer.pdfpage import PDFTextExtractionNotAllowed
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfdevice import PDFDevice
-from pdfminer.layout import LAParams
+from pdfminer.layout import LAParams, LTTextBox, LTTextLine, LTFigure
 from pdfminer.converter import PDFPageAggregator
 import pdfminer
 
@@ -22,7 +22,7 @@ class pdfTextParser:
         self.textBoxList = []
         self.pageSize = [0, 0]
 
-    def extractTargetText(self, targetPath, targetText = ' '):
+    def extractTargetText(self, targetPath, targetText = '10m'):
 
         # Open a PDF file.
         #fp = open('/Users/diqingchang/Desktop/Untitled.pdf', 'rb')
@@ -73,7 +73,11 @@ def parse_obj(lt_objs):
     for obj in lt_objs:
 
         # if it's a textbox, print text and location
-        if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
+        #if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
+        if isinstance(obj, LTTextBox):
+            for myTextLine in obj:
+                myStack.append(textBox(myTextLine.bbox[0], myTextLine.bbox[1], myTextLine.bbox[2], myTextLine.bbox[3],myTextLine.get_text().replace('\n', '_')))
+        elif isinstance(obj, LTTextLine):
             #print ("%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_')))
             #print(obj.bbox[2])
             #print(obj.bbox[3])
@@ -83,4 +87,9 @@ def parse_obj(lt_objs):
         elif isinstance(obj, pdfminer.layout.LTFigure):
             parse_obj(obj._objs)
     return myStack
+
+if __name__ == "__main__":
+
+    targetPath = 'G17170085 Radiant Opto Taiwan.pdf'
+    pdfTextParser().extractTargetText(targetPath)
 

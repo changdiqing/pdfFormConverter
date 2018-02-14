@@ -9,23 +9,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
-
-        self.targetText = "Length:_"
-
         self.initUI()
 
     def initUI(self):
         self.button = CustomLabel('Drop here.', self)
-        self.button.move(130,15)
-        self.button.targetText = self.targetText
+        self.button.move(0,0)
 
-    def labelOnDropFunction(self):
-        print("dropped")
+        self.lineEdit.textChanged.connect(self.lineEditTextChangeMethod)
+
+    def lineEditTextChangeMethod(self):
+        self.button.targetText = self.lineEdit.text()+'_'
+
+
 
 class CustomLabel(QLabel):
 
     def __init__(self, title, parent):
         super().__init__(title, parent)
+        self.setStyleSheet("margin:5px;  min-width: 28em;min-height: 18em ; border:1px solid rgb(0, 0, 0); ")
         self.setAcceptDrops(True)
         self.targetText = ""
 

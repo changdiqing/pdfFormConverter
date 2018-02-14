@@ -1,0 +1,52 @@
+missing module named resource - imported by posix, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named posix - imported by os, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named _posixsubprocess - imported by subprocess, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named org - imported by pickle, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named readline - imported by cmd, code, pdb, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+excluded module named _frozen_importlib - imported by importlib, importlib.abc, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named _winreg - imported by platform, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named _scproxy - imported by urllib.request
+missing module named java - imported by platform, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named 'java.lang' - imported by platform, xml.sax._exceptions, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named vms_lib - imported by platform, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named termios - imported by tty, getpass, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named grp - imported by shutil, tarfile, pathlib, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, pathlib, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named _dummy_threading - imported by dummy_threading, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named 'org.python' - imported by copy, xml.sax, C:\Users\Chang\Desktop\pdfFormConverter\mainWindow.py
+missing module named cffi - imported by Crypto.Util._raw_api, PIL.Image, PIL.PyAccess, PIL.ImageTk
+missing module named md5 - imported by pdfminer.pdfdocument, Crypto.Hash.MD5, PyPDF2.pdf, reportlab.lib.utils
+missing module named sha - imported by Crypto.Hash.SHA1
+missing module named rlextra - imported by reportlab.lib.pdfencrypt
+missing module named htmlentitydefs - imported by reportlab.platypus.paraparser
+missing module named HTMLParser - imported by reportlab.platypus.paraparser
+missing module named sets - imported by PyPDF2.pdf, reportlab.platypus.doctemplate
+missing module named tests - imported by reportlab.platypus.tables
+missing module named jarray - imported by reportlab.lib.utils
+missing module named 'javax.imageio' - imported by reportlab.lib.utils
+missing module named rl_config - imported by reportlab.lib.utils
+missing module named urllib2 - imported by reportlab.lib.utils
+missing module named 'reportlab.lib.pyHnj' - imported by reportlab.lib.utils
+missing module named Image - imported by reportlab.lib.utils
+missing module named olefile - imported by PIL.FpxImagePlugin, PIL.MicImagePlugin
+missing module named Tkinter - imported by PIL.ImageTk
+missing module named 'PySide.QtCore' - imported by PIL.ImageQt
+missing module named 'PyQt4.QtCore' - imported by PIL.ImageQt
+missing module named pathlib2 - imported by PIL.Image
+missing module named 'java.awt' - imported by reportlab.lib.utils
+missing module named javax - imported by reportlab.lib.utils
+missing module named macostools - imported by reportlab.lib.utils
+missing module named macfs - imported by reportlab.lib.utils
+missing module named __builtin__ - imported by PyPDF2.utils, reportlab, reportlab.lib.utils, PIL.Image
+missing module named StringIO - imported by six, reportlab.lib.utils
+missing module named cPickle - imported by pdfminer.cmapdb, reportlab.lib.utils
+missing module named cStringIO - imported by cPickle, PyPDF2.pdf, PyPDF2.filters, PyPDF2.merger
+missing module named copy_reg - imported by cPickle, cStringIO
+missing module named reportlab_mods - imported by reportlab
+missing module named 'reportlab.local_rl_mods' - imported by reportlab
+missing module named future_builtins - imported by reportlab
+missing module named pyfribidi2 - imported by reportlab.pdfgen.textobject
+missing module named System - imported by PyPDF2.filters
+missing module named django - imported by pdfminer.settings
+missing module named pygame - imported by pdfminer.ccitt
