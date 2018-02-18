@@ -1,5 +1,0 @@
-('C:\\Users\\Chang\\Desktop\\pdfFormConverter\\build\\mainWindow\\pdfrw-0.4-py3.6.egg',
- None,
- {'*.pyc', '*.py', 'EGG-INFO', '*.pyd', '*.so', '*.pyo'},
- 'DATA',
- [])

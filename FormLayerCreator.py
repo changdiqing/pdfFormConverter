@@ -12,7 +12,14 @@ def createFormLayerByTarget(targetFile, targetText):
     myMerger = PdfMerger()
 
     # get page size from target file
-    existing_pdf = PdfFileReader(open(targetFile, "rb"))
+    # check if is valid pdf file
+    try:
+        existing_pdf = PdfFileReader(open(targetFile, "rb"))
+    except:
+        return
+    else:
+        pass
+
     page = existing_pdf.getPage(0)
     x1, x2, xTR, yTR = page.mediaBox
 
@@ -25,12 +32,18 @@ def createFormLayerByTarget(targetFile, targetText):
         if item.text == targetText:
             coorList.append([item.coorxl, item.cooryl, item.coorxr, item.cooryr])
         else:
-            print(item.text)
+            pass
+
+    # check if is valid pdf file
+    if not coorList:
+        print("Nothing here")
+        return
 
     # create intermediate pdf file as new formular layer with pageSize and coordinates
     myBytesIO = myFormLayerGenerator.createFormLayer(xTR, yTR, coorList)
 
     # merge the formular layer and the original file
+    #myMerger.merge(myBytesIO,targetFile)
     myMerger.merge('intermediate.pdf',targetFile)
 
-    return myBytesIO
+    return

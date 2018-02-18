@@ -29,15 +29,14 @@ class PdfMerger(QWidget):
         if underneath:
             del argv[argv.index('-u')]
         inpfn, wmarkfn = argv
-        outfn = 'watermark.' + os.path.basename(wmarkfn)
         wmark = PageMerge().add(PdfReader(wmarkfn).pages[0])[0]
         trailer = PdfReader(inpfn)
         for page in trailer.pages:
             PageMerge(page).add(wmark, prepend=underneath).render()
 
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","PDF (*.pdf)", options=options)
-        if fileName:
-            PdfWriter(fileName, trailer=trailer).write()
-
+        #options = QFileDialog.Options()
+        #options |= QFileDialog.DontUseNativeDialog
+        #fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","PDF (*.pdf)", options=options)
+        #if fileName:
+        #    PdfWriter(fileName, trailer=trailer).write()
+        PdfWriter('intermediate2.pdf', trailer=trailer).write()

@@ -9,10 +9,11 @@ class FormularLayerGenerator:
         packet = io.BytesIO()
         # create a new PDF with Reportlab
         can = canvas.Canvas('intermediate.pdf')#packet)#, pagesize=(595.28.0, 841.89.0))
+        #can = canvas.Canvas(packet)#, pagesize=(595.28.0, 841.89.0))
         can.setPageSize((pageSizeX,pageSizeY))
         # can.drawString(10, 100, "Hello world")
         counter = 1
-        extraBorderWidth = 5
+        extraBorderWidth = 3
         for i in coorList:
             can.acroForm.textfield(
                 value='',
