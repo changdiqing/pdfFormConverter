@@ -43,7 +43,6 @@ def createFormLayerByTarget(targetFile, targetText):
     myBytesIO = myFormLayerGenerator.createFormLayer(xTR, yTR, coorList)
 
     # merge the formular layer and the original file
-    #myMerger.merge(myBytesIO,targetFile)
-    myMerger.merge('intermediate.pdf',targetFile)
+    mergedBytesIO = myMerger.merge(myBytesIO,targetFile)
 
-    return
+    return mergedBytesIO

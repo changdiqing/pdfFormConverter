@@ -17,8 +17,16 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 270, 361, 20))
+        self.lineEdit.setEnabled(True)
+        self.lineEdit.setGeometry(QtCore.QRect(10, 260, 361, 20))
+        self.lineEdit.setMouseTracking(False)
         self.lineEdit.setObjectName("lineEdit")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(10, 240, 221, 16))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(10, 290, 221, 16))
+        self.label_2.setObjectName("label_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -29,5 +37,17 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Easy Form Maker"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "EasyInspect PDF Decorator"))
+        self.label.setText(_translate("MainWindow", "Keyword to be covered by text field:"))
+        self.label_2.setText(_translate("MainWindow", "Annexes to be added after main file:"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
 

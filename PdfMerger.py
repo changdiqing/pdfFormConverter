@@ -14,15 +14,13 @@ NOTE 2: At one point, this example was extremely complicated, with
         so it has been re-simplified in order to show basic principles
         of the library operation and to match the other examples better.
 '''
-
-import sys
-import os
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget
 from pdfrw import PdfReader, PdfWriter, PageMerge
+import io
 
 class PdfMerger(QWidget):
     def merge(self, layer1, layer2):
+        packet = io.BytesIO()
         #argv = sys.argv[1:]
         argv = [layer1,layer2]
         underneath = '-u' in argv
@@ -39,4 +37,5 @@ class PdfMerger(QWidget):
         #fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","PDF (*.pdf)", options=options)
         #if fileName:
         #    PdfWriter(fileName, trailer=trailer).write()
-        PdfWriter('intermediate2.pdf', trailer=trailer).write()
+        PdfWriter(packet, trailer=trailer).write()
+        return packet

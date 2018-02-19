@@ -1,15 +1,12 @@
-from PyPDF2 import PdfFileWriter, PdfFileReader
 import io
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
 
 class FormularLayerGenerator:
 
     def createFormLayer(self, pageSizeX, pageSizeY, coorList):
         packet = io.BytesIO()
         # create a new PDF with Reportlab
-        can = canvas.Canvas('intermediate.pdf')#packet)#, pagesize=(595.28.0, 841.89.0))
-        #can = canvas.Canvas(packet)#, pagesize=(595.28.0, 841.89.0))
+        can = canvas.Canvas(packet)
         can.setPageSize((pageSizeX,pageSizeY))
         # can.drawString(10, 100, "Hello world")
         counter = 1

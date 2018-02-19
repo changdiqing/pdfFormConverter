@@ -1,7 +1,7 @@
 import sys
 import os.path
 import FormLayerCreator
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QLabel, QListWidget, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QListWidget, QFileDialog
 from ui.Ui_MainWindow import Ui_MainWindow
 from PyPDF2 import PdfFileMerger
 import pickle
@@ -13,10 +13,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.initUI()
 
     def initUI(self):
-        self.button = CustomLabel('Drop here.', self)
-        self.button.move(0,0)
+        self.button = CustomLabel('Drop here the main file to start generation.', self)
+        self.button.move(5,0)
         self.fileList = CustomListWidget('Drop here.', self)
-        self.fileList.move(0,300)
+        self.fileList.move(5,300)
 
         self.lineEdit.textChanged.connect(self.lineEditTextChangeMethod)
         self.lineEdit.textEdited.connect(self.lineEditTextEditedMethod)
@@ -69,7 +69,7 @@ class CustomLabel(QLabel):
 
     def __init__(self, title, parent):
         super().__init__(title, parent)
-        self.setStyleSheet("margin:5px;  min-width: 28em;min-height: 16em ; border:1px solid rgb(0, 0, 0); ")
+        self.setStyleSheet("margin:5px;  min-width: 28em;min-height: 14em ; border:1px solid rgb(0, 0, 0); ")
         self.setAcceptDrops(True)
         self.targetText = ""
         self.fileNames = []
@@ -84,11 +84,8 @@ class CustomLabel(QLabel):
         for url in event.mimeData().urls():
             path = url.toLocalFile()
             print(os.path.isfile(path))
-            FormLayerCreator.createFormLayerByTarget(path, self.targetText)
-
-
-
-            self.mergePDFs(['intermediate2.pdf']+self.fileNames)
+            mergedBytesIO = FormLayerCreator.createFormLayerByTarget(path, self.targetText)
+            self.mergePDFs([mergedBytesIO]+self.fileNames)
             #path = url.toLocalFile().toLocal8Bit().data()
             #if os.path.isfile(path):
             #    print(path)
@@ -101,7 +98,7 @@ class CustomLabel(QLabel):
 
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","","PDF (*.pdf)", options=options)
+        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","Project Overview for Cable Lengths.pdf","PDF (*.pdf)", options=options)
         if fileName:
             merger.write(fileName)
 
