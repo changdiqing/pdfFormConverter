@@ -2,9 +2,9 @@ import sys
 import os.path
 import FormLayerCreator
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QLabel, QListWidget, QFileDialog
-from Ui_MainWindow import Ui_MainWindow
-from pdfrw import PdfReader
+from ui.Ui_MainWindow import Ui_MainWindow
 from PyPDF2 import PdfFileMerger
+import pickle
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -19,6 +19,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.fileList.move(0,300)
 
         self.lineEdit.textChanged.connect(self.lineEditTextChangeMethod)
+        self.lineEdit.textEdited.connect(self.lineEditTextEditedMethod)
+        self.lineEdit.placeholderText="Keyword"
+
+        try:
+            foo = pickle.load(open("savedKeyword.pickle", "rb"))
+            self.lineEdit.setText(foo)
+        except (OSError, IOError) as e:
+            foo = self.lineEdit.text()
+            pickle.dump(foo, open("savedKeyword.pickle", "wb"))
 
         self.fileList.itemChanged.connect(self.fileListChangeMethod)
 
@@ -42,6 +51,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def lineEditTextChangeMethod(self):
         self.button.targetText = self.lineEdit.text()+'_'
+
+    def lineEditTextEditedMethod(self):
+        text = self.lineEdit.text()
+        with open('savedKeyword.pickle', 'wb') as handle:
+            pickle.dump(text, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     def scannAttachments(self):
         fileNames = []
