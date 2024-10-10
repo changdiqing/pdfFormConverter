@@ -125,7 +125,6 @@ class CustomListWidget(QListWidget):
             super(CustomListWidget, self).dragMoveEvent(event)
 
     def dropEvent(self, event):
-        print('dropEvent', event)
         if event.mimeData().hasUrls():
             #event.setDropAction(QtCore.Qt.CopyAction)
             event.accept()
