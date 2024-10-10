@@ -17,9 +17,7 @@ def createFormLayerByTarget(targetFile, targetText):
         existing_pdf = PdfReader(open(targetFile, "rb"))
     except:
         print("exception thrown when reading the pdf file")
-        return
-    else:
-        pass
+        raise
 
     page = existing_pdf.pages[0]
     x1, x2, xTR, yTR = page.mediabox

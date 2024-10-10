@@ -1,7 +1,7 @@
 import sys
 import os.path
 import FormLayerCreator
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QListWidget, QFileDialog, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QMessageBox, QMainWindow, QPushButton, QLabel, QListWidget, QFileDialog, QAbstractItemView
 from PyQt5.QtCore import pyqtSignal
 from Ui_MainWindow import Ui_MainWindow
 from PyPDF2 import PdfMerger
@@ -77,10 +77,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         path = self.button.text()
         targetText = self.lineEdit.text()+'_'
         annexesRelPaths = []
-        for fileName in self.fileList.getSelectedItems():
+        for fileName in self.fileList.getSelectedItems(False):
             annexesRelPaths.append(os.path.join("attachments", fileName))
 
-        mergedBytesIO = FormLayerCreator.createFormLayerByTarget(path, targetText)
+        try:
+            mergedBytesIO = FormLayerCreator.createFormLayerByTarget(path, targetText)
+        except Exception as e:
+            error_message= f"An error occurred: {e}"
+            QMessageBox.critical(self, "Error", error_message)
+            return
         self.mergePDFs([mergedBytesIO]+annexesRelPaths)
 
 class CustomLabel(QLabel):
@@ -137,10 +142,16 @@ class CustomListWidget(QListWidget):
             #event.setDropAction(QtCore.Qt.MoveAction)
             super(CustomListWidget, self).dropEvent(event)
 
-    def getSelectedItems(self):
+    def getSelectedItems(self, reversed=False):
         items = []
-        for item in self.selectedItems():
-            items.append(str(item.text()))
+        # if reversed, collect the items in reverse order
+        if reversed:
+            for index in range(self.count()):
+                item = self.item(self.count() - 1 - index)
+                items.append(str(item.text()))
+        else:
+            for item in self.selectedItems():
+                items.append(str(item.text()))
         return items
 
 if __name__ == "__main__":
