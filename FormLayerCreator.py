@@ -1,5 +1,5 @@
 from PdfParser import pdfTextParser
-from PyPDF2 import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfReader
 from FormularLayerGenerator import FormularLayerGenerator
 from PdfMerger import PdfMerger
 
@@ -14,14 +14,15 @@ def createFormLayerByTarget(targetFile, targetText):
     # get page size from target file
     # check if is valid pdf file
     try:
-        existing_pdf = PdfFileReader(open(targetFile, "rb"))
+        existing_pdf = PdfReader(open(targetFile, "rb"))
     except:
+        print("exception thrown when reading the pdf file")
         return
     else:
         pass
 
-    page = existing_pdf.getPage(0)
-    x1, x2, xTR, yTR = page.mediaBox
+    page = existing_pdf.pages[0]
+    x1, x2, xTR, yTR = page.mediabox
 
 
     # parse the target file and extract text coordinates

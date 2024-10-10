@@ -3,7 +3,7 @@ import os.path
 import FormLayerCreator
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QListWidget, QFileDialog
 from ui.Ui_MainWindow import Ui_MainWindow
-from PyPDF2 import PdfFileMerger
+from PyPDF2 import PdfMerger
 import pickle
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -92,7 +92,7 @@ class CustomLabel(QLabel):
             # do other stuff with path...
 
     def mergePDFs(self, pdfs):
-        merger = PdfFileMerger()
+        merger = PdfMerger()
         for pdf in pdfs:
             merger.append(pdf)
 
