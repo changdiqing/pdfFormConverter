@@ -1,30 +1,63 @@
 import sys
 import os.path
 import FormLayerCreator
-from PyQt5.QtWidgets import QApplication, QMessageBox, QMainWindow, QPushButton, QLabel, QListWidget, QFileDialog, QAbstractItemView
-from PyQt5.QtCore import pyqtSignal
-from Ui_MainWindow import Ui_MainWindow
+from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QMainWindow, QPushButton, QLabel, QListWidget, QFileDialog, QAbstractItemView, QStatusBar, QLineEdit
+from PyQt5.QtCore import pyqtSignal, QMetaObject, QCoreApplication, QRect, QSize
 from PyPDF2 import PdfMerger
 import pickle
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.initUI()
 
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(QSize(380, 450))
+        MainWindow.setMinimumSize(QSize(380, 450))
+        MainWindow.setMaximumSize(QSize(380, 450))
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.button = CustomLabel(self.centralwidget)
+        self.button.setGeometry(QRect(10, 10, 360, 150))
+        self.label = QLabel(self.centralwidget)
+        self.label.setGeometry(QRect(10, 180, 360, 20))
+        self.label.setObjectName("label")
+        self.lineEdit = QLineEdit(self.centralwidget)
+        self.lineEdit.setEnabled(True)
+        self.lineEdit.setGeometry(QRect(10, 200, 360, 20))
+        self.lineEdit.setMouseTracking(False)
+        self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit.placeholderText="Keyword"
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setGeometry(QRect(10, 240, 360, 20))
+        self.label_2.setObjectName("label_2")
+        self.fileList = CustomListWidget(self.centralwidget)
+        self.fileList.setGeometry(QRect(10, 260, 360, 130))
+        self.convertButton = QPushButton('New Button', self)
+        self.convertButton.setGeometry(QRect(10, 400, 100, 40))
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.statusbar =QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "EasyInspect PDF Decorator"))
+        self.button.setText(_translate("MainWindow", "Drop to add the primary file."))
+        self.label.setText(_translate("MainWindow", "Keyword to be replaced by a text field:"))
+        self.label_2.setText(_translate("MainWindow", "Select the annexes you want to attach:"))
+        self.convertButton.setText(_translate("MainWindow", "Convert"))
+
     def initUI(self):
-        self.button = CustomLabel('Drop to add the main file.', self)
-        self.button.move(5,0)
-        self.fileList = CustomListWidget('Drop here.', self)
-        self.fileList.move(5,260)
 
         self.lineEdit.textEdited.connect(self.lineEditTextEditedMethod)
-        self.lineEdit.placeholderText="Keyword"
-
-        self.convertButton = QPushButton('New Button', self)
-        self.convertButton.setText('Convert')
-        self.convertButton.move(5, 410)
         self.convertButton.clicked.connect(self.convert)
 
         try:
@@ -69,7 +102,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(None,"QFileDialog.getSaveFileName()","Project Overview for Cable Lengths.pdf","PDF (*.pdf)", options=options)
+        fileName, _ = QFileDialog.getSaveFileName(None,"Save the converted PDF","Project Overview for Cable Lengths.pdf","PDF (*.pdf)", options=options)
         if fileName:
             merger.write(fileName)
 
@@ -90,11 +123,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 class CustomLabel(QLabel):
 
-    def __init__(self, title, parent):
-        super().__init__(title, parent)
-        self.setStyleSheet("margin:5px;  min-width: 28em;min-height: 12em ; border:1px solid rgb(0, 0, 0); ")
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setStyleSheet("border:1px solid rgb(0, 0, 0); ")
         self.setAcceptDrops(True)
         self.fileNames = []
+        self.setWordWrap(True)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -109,9 +143,9 @@ class CustomLabel(QLabel):
 
 
 class CustomListWidget(QListWidget):
-    def __init__(self, type, parent=None):
-        super(CustomListWidget, self).__init__(parent)
-        self.setStyleSheet("margin:5px;  min-width: 28em;min-height: 10em ; border:1px solid rgb(0, 0, 0); ")
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setStyleSheet("border:1px solid rgb(0, 0, 0); ")
         #self.setIconSize(QtCore.QSize(124, 124))
         #self.setDragDropMode(QtGui.QAbstractItemView.DragDrop)
         self.setSelectionMode(QAbstractItemView.MultiSelection)
